@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spend Ayush's ₹5 Trillion - Money Spending Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* ==================== Global Styles ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --dark-bg: #0f172a;
+    --card-bg: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body.light-mode {
+    --dark-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+}
+
+/* ==================== Header ==================== */
+.header {
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.light-mode .header {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.theme-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+    border-color: var(--primary-color);
+}
+
+/* ==================== Stats Section ==================== */
+.stats-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.main-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.progress-section {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 24px;
+    background: var(--dark-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.progress-bar.high {
+    background: linear-gradient(90deg, var(--warning-color), var(--danger-color));
+}
+
+/* ==================== Filter Section ==================== */
+.filter-section {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+/* ==================== Items Grid ==================== */
+.items-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem 4rem;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.item-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.item-card.shake {
+    animation: shake 0.5s;
+}
+
+.item-card.sparkle::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    animation: sparkle 1s infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px) rotate(-5deg); }
+    75% { transform: translateX(10px) rotate(5deg); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.item-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.item-content {
+    padding: 1.5rem;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.item-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.item-category {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.item-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.item-owned {
+    background: var(--dark-bg);
+    padding: 0.75rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.custom-buy-section {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.quantity-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.buy-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.buy-btn-one {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    color: white;
+}
+
+.buy-btn-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.buy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.buy-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.purchase-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card-bg);
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--success-color);
+    z-index: 2000;
+    animation: popIn 0.3s ease;
+    text-align: center;
+}
+
+@keyframes popIn {
+    0% { transform: translate(-50%, -50%) scale(0); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ==================== Receipt Section ==================== */
+.receipt-container {
+    position: fixed;
+    right: 2rem;
+    top: 120px;
+    width: 350px;
+    max-height: 70vh;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.receipt-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1.5rem;
+    color: white;
+}
+
+.receipt-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.receipt-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--dark-bg);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.receipt-item-info {
+    flex: 1;
+}
+
+.receipt-item-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.receipt-item-quantity {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.delete-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.receipt-footer {
+    padding: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.receipt-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* ==================== Challenge Modal ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 24px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.challenge-timer {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--warning-color);
+    margin: 2rem 0;
+}
+
+/* ==================== Achievements ==================== */
+.achievements-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 350px;
+}
+
+.achievement {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--success-color);
+    margin-bottom: 1rem;
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(400px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1200px) {
+    .receipt-container {
+        position: static;
+        width: 100%;
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo h1 {
+        font-size: 1.25rem;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content {
+        padding: 2rem;
+    }
+}
+
+/* ==================== Music Player ==================== */
+.music-player {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background: var(--card-bg);
+    padding: 1rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    z-index: 999;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.music-player:hover {
+    transform: scale(1.1);
+}
+
+.music-player i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-money-bill-wave"></i>
+                <h1>Spend Ayush's ₹5 Trillion</h1>
+            </div>
+            <div class="controls">
+                <button class="btn btn-primary" onclick="showDailyChallenge()">
+                    <i class="fas fa-trophy"></i> Daily Challenge
+                </button>
+                <button class="btn btn-primary" onclick="showHourlyChallenge()">
+                    <i class="fas fa-clock"></i> Hourly Challenge
+                </button>
+                <button class="btn btn-secondary" onclick="showAchievements()">
+                    <i class="fas fa-medal"></i> Achievements
+                </button>
+                <button class="btn btn-secondary" onclick="resetGame()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+        <div class="main-stats">
+            <div class="stat-card">
+                <div class="stat-label">Net Worth</div>
+                <div class="stat-value" id="netWorth">₹5,00,00,00,00,000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Spent</div>
+                <div class="stat-value" id="totalSpent">₹0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Remaining</div>
+                <div class="stat-value" id="remaining">₹5,00,00,00,00,000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Items Owned</div>
+                <div class="stat-value" id="itemsOwned">0</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-header">
+                <h3>Spending Progress</h3>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">All Items</button>
+            <button class="filter-btn" data-category="tech">Tech</button>
+            <button class="filter-btn" data-category="cars">Cars</button>
+            <button class="filter-btn" data-category="luxury">Luxury</button>
+            <button class="filter-btn" data-category="sports">Sports</button>
+            <button class="filter-btn" data-category="crypto">Crypto</button>
+            <button class="filter-btn" data-category="realestate">Real Estate</button>
+            <button class="filter-btn" data-category="metals">Metals</button>
+            <button class="filter-btn" data-category="entertainment">Entertainment</button>
+            <button class="filter-btn" data-category="companies">Companies</button>
+        </div>
+    </div>
+
+    <!-- Items Grid -->
+    <div class="items-container">
+        <div class="items-grid" id="itemsGrid"></div>
+    </div>
+
+    <!-- Receipt -->
+    <div class="receipt-container">
+        <div class="receipt-header">
+            <h3><i class="fas fa-receipt"></i> Purchase Receipt</h3>
+        </div>
+        <div class="receipt-items" id="receiptItems">
+            <p style="text-align: center; padding: 2rem; color: var(--text-secondary);">No purchases yet!</p>
+        </div>
+        <div class="receipt-footer">
+            <div class="receipt-total">
+                <span>Total:</span>
+                <span id="receiptTotal">₹0</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="clearReceipt()">
+                <i class="fas fa-trash"></i> Clear All
+            </button>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" onclick="toggleMusic()">
+        <i class="fas fa-music" id="music-icon"></i>
+    </div>
+
+    <!-- Achievements Popup -->
+    <div class="achievements-container" id="achievementsPopup"></div>
+
+    <!-- Challenge Modal -->
+    <div class="modal" id="challengeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="challengeTitle">Daily Challenge</h2>
+                <p id="challengeDescription"></p>
+            </div>
+            <div class="challenge-timer" id="challengeTimer">00:00</div>
+            <button class="btn btn-primary" onclick="startChallenge()">Start Challenge</button>
+            <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+// ==================== Game State ====================
+let gameState = {
+    netWorth: 50000000000000, // ₹5 Trillion
+    totalSpent: 0,
+    purchases: {},
+    achievements: [],
+    musicPlaying: false
+};
+
+// ==================== Items Database ====================
+const items = [
+    // Tech
+    { id: 1, name: "iPhone 15 Pro Max", price: 159900, category: "tech", image: "https://images.unsplash.com/photo-1695048064824-ac064223d9e5?w=400" },
+    { id: 2, name: "MacBook Pro M3", price: 199900, category: "tech", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400" },
+    { id: 3, name: "Samsung S24 Ultra", price: 129999, category: "tech", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400" },
+    { id: 4, name: "iPad Pro 12.9", price: 112900, category: "tech", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400" },
+    { id: 5, name: "Sony PlayStation 5", price: 54990, category: "tech", image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400" },
+    { id: 6, name: "Gaming PC (RTX 4090)", price: 450000, category: "tech", image: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400" },
+    { id: 7, name: "Apple Watch Ultra 2", price: 89900, category: "tech", image: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=400" },
+    { id: 8, name: "AirPods Pro Max", price: 59900, category: "tech", image: "https://images.unsplash.com/photo-1625073266384-41f6c26a3e25?w=400" },
+    { id: 9, name: "DJI Mavic 3 Drone", price: 239000, category: "tech", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400" },
+    { id: 10, name: "Sony A7R V Camera", price: 349990, category: "tech", image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400" },
+
+    // Cars
+    { id: 11, name: "Tesla Model S", price: 10000000, category: "cars", image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400" },
+    { id: 12, name: "Lamborghini Aventador", price: 60000000, category: "cars", image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=400" },
+    { id: 13, name: "Ferrari F8 Tributo", price: 45000000, category: "cars", image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=400" },
+    { id: 14, name: "Rolls Royce Phantom", price: 90000000, category: "cars", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=400" },
+    { id: 15, name: "Bugatti Chiron", price: 300000000, category: "cars", image: "https://images.unsplash.com/photo-1566473965997-3de9c817e938?w=400" },
+    { id: 16, name: "Mercedes-Benz S-Class", price: 18000000, category: "cars", image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=400" },
+    { id: 17, name: "BMW M8 Competition", price: 25000000, category: "cars", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400" },
+    { id: 18, name: "Porsche 911 Turbo S", price: 35000000, category: "cars", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400" },
+    { id: 19, name: "Aston Martin DB11", price: 42000000, category: "cars", image: "https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=400" },
+    { id: 20, name: "McLaren 720S", price: 48000000, category: "cars", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400" },
+
+    // Luxury
+    { id: 21, name: "Rolex Submariner", price: 1200000, category: "luxury", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400" },
+    { id: 22, name: "Louis Vuitton Bag", price: 350000, category: "luxury", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400" },
+    { id: 23, name: "Gucci Suit", price: 450000, category: "luxury", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400" },
+    { id: 24, name: "Diamond Ring (2 Carat)", price: 2500000, category: "luxury", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400" },
+    { id: 25, name: "Private Yacht", price: 500000000, category: "luxury", image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400" },
+    { id: 26, name: "Private Jet (Gulfstream)", price: 6000000000, category: "luxury", image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=400" },
+    { id: 27, name: "Hermes Birkin Bag", price: 1500000, category: "luxury", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400" },
+    { id: 28, name: "Patek Philippe Watch", price: 5000000, category: "luxury", image: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400" },
+    { id: 29, name: "Helicopter (Bell 407)", price: 80000000, category: "luxury", image: "https://images.unsplash.com/photo-1520699049698-acd2fccb8cc8?w=400" },
+    { id: 30, name: "Private Island", price: 10000000000, category: "luxury", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400" },
+
+    // Sports
+    { id: 31, name: "IPL Team Mumbai Indians", price: 160000000000, category: "sports", image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400" },
+    { id: 32, name: "IPL Team CSK", price: 140000000000, category: "sports", image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400" },
+    { id: 33, name: "Cricket Bat (Signed)", price: 150000, category: "sports", image: "https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=400" },
+    { id: 34, name: "Football Stadium Box", price: 50000000, category: "sports", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400" },
+    { id: 35, name: "Tennis Court", price: 5000000, category: "sports", image: "https://images.unsplash.com/photo-1595435742656-5272d0b3e7a8?w=400" },
+    { id: 36, name: "Golf Club Membership", price: 10000000, category: "sports", image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=400" },
+    { id: 37, name: "Racing Horse", price: 15000000, category: "sports", image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400" },
+    { id: 38, name: "Formula 1 Car", price: 200000000, category: "sports", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400" },
+    { id: 39, name: "Basketball Court", price: 8000000, category: "sports", image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400" },
+    { id: 40, name: "Speedboat", price: 25000000, category: "sports", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400" },
+
+    // Crypto
+    { id: 41, name: "1 Bitcoin", price: 3500000, category: "crypto", image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=400" },
+    { id: 42, name: "10 Ethereum", price: 2000000, category: "crypto", image: "https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=400" },
+    { id: 43, name: "NFT Collection", price: 5000000, category: "crypto", image: "https://images.unsplash.com/photo-1645731533096-ae2e28c92f3c?w=400" },
+    { id: 44, name: "100 Solana", price: 800000, category: "crypto", image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400" },
+    { id: 45, name: "Crypto Mining Rig", price: 1200000, category: "crypto", image: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=400" },
+    { id: 46, name: "1000 Dogecoin", price: 8000, category: "crypto", image: "https://images.unsplash.com/photo-1621504450181-5d356f61d307?w=400" },
+    { id: 47, name: "Blockchain Startup", price: 100000000, category: "crypto", image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=400" },
+    { id: 48, name: "Crypto Exchange License", price: 50000000, category: "crypto", image: "https://images.unsplash.com/photo-1621504450181-5d356f61d307?w=400" },
+    { id: 49, name: "DeFi Platform", price: 150000000, category: "crypto", image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400" },
+    { id: 50, name: "Metaverse Land", price: 10000000, category: "crypto", image: "https://images.unsplash.com/photo-1636690598688-d48f02fb32dd?w=400" },
+
+    // Real Estate
+    { id: 51, name: "Mumbai Penthouse", price: 500000000, category: "realestate", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
+    { id: 52, name: "Delhi Farmhouse", price: 300000000, category: "realestate", image: "https://images.unsplash.com/photo-1566908829550-e6551b00979b?w=400" },
+    { id: 53, name: "Goa Beach Villa", price: 150000000, category: "realestate", image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400" },
+    { id: 54, name: "Commercial Building", price: 2000000000, category: "realestate", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" },
+    { id: 55, name: "Shopping Mall", price: 5000000000, category: "realestate", image: "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=400" },
+    { id: 56, name: "5-Star Hotel", price: 10000000000, category: "realestate", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" },
+    { id: 57, name: "Tech Park", price: 15000000000, category: "realestate", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" },
+    { id: 58, name: "Burj Khalifa", price: 150000000000, category: "realestate", image: "https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=400" },
+    { id: 59, name: "Antilia (Mukesh Ambani)", price: 1500000000000, category: "realestate", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400" },
+    { id: 60, name: "Luxury Apartment", price: 80000000, category: "realestate", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400" },
+
+    // Metals
+    { id: 61, name: "1kg Gold Bar (24K)", price: 6500000, category: "metals", image: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=400" },
+    { id: 62, name: "1kg Silver Bar", price: 75000, category: "metals", image: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=400" },
+    { id: 63, name: "1kg Platinum Bar", price: 3500000, category: "metals", image: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=400" },
+    { id: 64, name: "Diamond (1 Carat)", price: 500000, category: "metals", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400" },
+    { id: 65, name: "Ruby (5 Carat)", price: 1000000, category: "metals", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400" },
+    { id: 66, name: "Emerald (3 Carat)", price: 750000, category: "metals", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400" },
+    { id: 67, name: "Gold Coins (10)", price: 650000, category: "metals", image: "https://images.unsplash.com/photo-1610375461369-d881e5020157?w=400" },
+    { id: 68, name: "Gold Jewellery Set", price: 2500000, category: "metals", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" },
+    { id: 69, name: "Diamond Necklace", price: 5000000, category: "metals", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400" },
+    { id: 70, name: "Gold Crown", price: 10000000, category: "metals", image: "https://images.unsplash.com/photo-1610375461369-d881e5020157?w=400" },
+
+    // Entertainment
+    { id: 71, name: "Bollywood Movie Production", price: 1000000000, category: "entertainment", image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400" },
+    { id: 72, name: "Music Album Production", price: 50000000, category: "entertainment", image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400" },
+    { id: 73, name: "Movie Theater", price: 200000000, category: "entertainment", image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400" },
+    { id: 74, name: "Gaming Console Collection", price: 500000, category: "entertainment", image: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=400" },
+    { id: 75, name: "Netflix Subscription (100 Years)", price: 6000000, category: "entertainment", image: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=400" },
+    { id: 76, name: "Spotify Premium (Lifetime)", price: 100000, category: "entertainment", image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400" },
+    { id: 77, name: "Concert Venue", price: 500000000, category: "entertainment", image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400" },
+    { id: 78, name: "TV Network", price: 5000000000, category: "entertainment", image: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=400" },
+    { id: 79, name: "Theme Park", price: 20000000000, category: "entertainment", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" },
+    { id: 80, name: "Film Studio", price: 10000000000, category: "entertainment", image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400" },
+
+    // Companies & Brands
+    { id: 81, name: "McDonald's Franchise", price: 200000000, category: "companies", image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400" },
+    { id: 82, name: "Starbucks Franchise", price: 150000000, category: "companies", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400" },
+    { id: 83, name: "Tesla Stock (1000 shares)", price: 30000000, category: "companies", image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=400" },
+    { id: 84, name: "Apple Stock (1000 shares)", price: 20000000, category: "companies", image: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400" },
+    { id: 85, name: "Start-up Company", price: 500000000, category: "companies", image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400" },
+    { id: 86, name: "E-commerce Website", price: 100000000, category: "companies", image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400" },
+    { id: 87, name: "Air India", price: 1800000000000, category: "companies", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400" },
+    { id: 88, name: "SpaceX Rocket Launch", price: 6000000000, category: "companies", image: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=400" },
+    { id: 89, name: "Manchester United FC", price: 60000000000, category: "companies", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400" },
+    { id: 90, name: "Amazon Stock (500 shares)", price: 10000000, category: "companies", image: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=400" },
+
+    // Mega Items
+    { id: 91, name: "International Space Station Module", price: 15000000000000, category: "companies", image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400" },
+    { id: 92, name: "Oil Refinery", price: 50000000000, category: "companies", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400" },
+    { id: 93, name: "Nuclear Power Plant", price: 100000000000, category: "companies", image: "https://images.unsplash.com/photo-1624984520562-a877d5cb37c6?w=400" },
+    { id: 94, name: "Entire Country GDP (Small)", price: 5000000000000, category: "companies", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=400" },
+    { id: 95, name: "Moon Land (Acre)", price: 100000000, category: "luxury", image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?w=400" },
+    { id: 96, name: "Submarine", price: 50000000000, category: "luxury", image: "https://images.unsplash.com/photo-1606666792235-1c55fcf0fd25?w=400" },
+    { id: 97, name: "Aircraft Carrier", price: 130000000000, category: "luxury", image: "https://images.unsplash.com/photo-1578409324403-6c01e49c4a68?w=400" },
+    { id: 98, name: "Artificial Intelligence Company", price: 100000000000, category: "companies", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" },
+    { id: 99, name: "Social Media Platform", price: 200000000000, category: "companies", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400" },
+    { id: 100, name: "Own Country", price: 10000000000000, category: "companies", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=400" }
+];
+
+// ==================== Initialize Game ====================
+function initGame() {
+    loadGameState();
+    renderItems('all');
+    updateStats();
+    setupFilters();
+    applyDynamicPricing();
+    checkAchievements();
+}
+
+// ==================== Dynamic Pricing ====================
+function applyDynamicPricing() {
+    items.forEach(item => {
+        const variation = 0.95 + Math.random() * 0.1; // ±5% price variation
+        item.price = Math.floor(item.price * variation);
+    });
+}
+
+// ==================== Render Items ====================
+function renderItems(category) {
+    const grid = document.getElementById('itemsGrid');
+    const filteredItems = category === 'all' ? items : items.filter(item => item.category === category);
+    
+    grid.innerHTML = filteredItems.map(item => {
+        const owned = gameState.purchases[item.id] || 0;
+        const isExpensive = item.price >= 10000000; // ₹1 crore
+        const isSuperExpensive = item.price >= 1000000000; // ₹100 crore
+        
+        return `
+            <div class="item-card ${isExpensive ? 'shake' : ''} ${isSuperExpensive ? 'sparkle' : ''}" data-id="${item.id}">
+                <img src="${item.image}" alt="${item.name}" class="item-image">
+                <div class="item-content">
+                    <div class="item-header">
+                        <h3 class="item-name">${item.name}</h3>
+                        <span class="item-category">${item.category}</span>
+                    </div>
+                    <div class="item-price">₹${formatNumber(item.price)}</div>
+                    <div class="item-owned">
+                        Owned: <strong>${owned}</strong>
+                    </div>
+                    <div class="custom-buy-section">
+                        <input type="number" class="quantity-input" id="qty-${item.id}" min="1" value="1" placeholder="Qty">
+                    </div>
+                    <div class="item-actions">
+                        <button class="buy-btn buy-btn-one" onclick="buyItem(${item.id}, 1)">
+                            Buy 1
+                        </button>
+                        <button class="buy-btn buy-btn-custom" onclick="buyCustom(${item.id})">
+                            Buy Custom
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== Buy Functions ====================
+function buyItem(itemId, quantity) {
+    const item = items.find(i => i.id === itemId);
+    const totalCost = item.price * quantity;
+    
+    if (gameState.netWorth - gameState.totalSpent >= totalCost) {
+        gameState.totalSpent += totalCost;
+        gameState.purchases[itemId] = (gameState.purchases[itemId] || 0) + quantity;
+        
+        updateStats();
+        updateReceipt();
+        saveGameState();
+        checkAchievements();
+        playSound(totalCost);
+        showNotification(`Purchased ${quantity}x ${item.name}!`);
+        renderItems(getCurrentFilter());
+    } else {
+        alert('Not enough money!');
+    }
+}
+
+function buyCustom(itemId) {
+    const input = document.getElementById(`qty-${itemId}`);
+    const quantity = parseInt(input.value) || 1;
+    
+    const item = items.find(i => i.id === itemId);
+    const totalCost = item.price * quantity;
+    const maxAffordable = Math.floor((gameState.netWorth - gameState.totalSpent) / item.price);
+    
+    if (quantity > maxAffordable) {
+        alert(`You can only afford ${maxAffordable} of this item!`);
+        input.value = maxAffordable;
+        return;
+    }
+    
+    buyItem(itemId, quantity);
+}
+
+// ==================== Update Stats ====================
+function updateStats() {
+    const remaining = gameState.netWorth - gameState.totalSpent;
+    const percentage = (gameState.totalSpent / gameState.netWorth * 100).toFixed(2);
+    
+    document.getElementById('netWorth').textContent = `₹${formatNumber(gameState.netWorth)}`;
+    document.getElementById('totalSpent').textContent = `₹${formatNumber(gameState.totalSpent)}`;
+    document.getElementById('remaining').textContent = `₹${formatNumber(remaining)}`;
+    document.getElementById('itemsOwned').textContent = Object.values(gameState.purchases).reduce((a, b) => a + b, 0);
+    
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = `${percentage}%`;
+    progressBar.textContent = `${percentage}%`;
+    document.getElementById('progressPercent').textContent = `${percentage}%`;
+    
+    if (percentage > 75) {
+        progressBar.classList.add('high');
+    } else {
+        progressBar.classList.remove('high');
+    }
+}
+
+// ==================== Receipt ====================
+function updateReceipt() {
+    const receiptItems = document.getElementById('receiptItems');
+    const items_purchased = Object.entries(gameState.purchases).filter(([id, qty]) => qty > 0);
+    
+    if (items_purchased.length === 0) {
+        receiptItems.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--text-secondary);">No purchases yet!</p>';
+        document.getElementById('receiptTotal').textContent = '₹0';
+        return;
+    }
+    
+    receiptItems.innerHTML = items_purchased.map(([id, qty]) => {
+        const item = items.find(i => i.id == id);
+        return `
+            <div class="receipt-item">
+                <div class="receipt-item-info">
+                    <div class="receipt-item-name">${item.name}</div>
+                    <div class="receipt-item-quantity">${qty}x ₹${formatNumber(item.price)}</div>
+                </div>
+                <button class="delete-btn" onclick="removeFromReceipt(${id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('receiptTotal').textContent = `₹${formatNumber(gameState.totalSpent)}`;
+}
+
+function removeFromReceipt(itemId) {
+    const item = items.find(i => i.id == itemId);
+    const qty = gameState.purchases[itemId] || 0;
+    
+    gameState.totalSpent -= item.price * qty;
+    delete gameState.purchases[itemId];
+    
+    updateStats();
+    updateReceipt();
+    saveGameState();
+    renderItems(getCurrentFilter());
+}
+
+function clearReceipt() {
+    if (confirm('Clear all purchases?')) {
+        gameState.purchases = {};
+        gameState.totalSpent = 0;
+        updateStats();
+        updateReceipt();
+        saveGameState();
+        renderItems(getCurrentFilter());
+    }
+}
+
+// ==================== Filters ====================
+function setupFilters() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            renderItems(this.dataset.category);
+        });
+    });
+}
+
+function getCurrentFilter() {
+    return document.querySelector('.filter-btn.active').dataset.category;
+}
+
+// ==================== Achievements ====================
+const achievements = [
+    { id: 'first', title: 'First Purchase', amount: 1, icon: '🎯' },
+    { id: '1lakh', title: '₹1 Lakh Spender', amount: 100000, icon: '💰' },
+    { id: '1crore', title: '₹1 Crore Spender', amount: 10000000, icon: '💎' },
+    { id: '100crore', title: '₹100 Crore Spender', amount: 1000000000, icon: '🏆' },
+    { id: '1000crore', title: '₹1,000 Crore Spender', amount: 100000000000, icon: '👑' },
+    { id: 'billionaire', title: 'Ayush Billionaire', amount: 1000000000000, icon: '🚀' },
+    { id: 'trillionaire', title: 'Ayush Trillionaire', amount: 5000000000000, icon: '⭐' }
+];
+
+function checkAchievements() {
+    achievements.forEach(achievement => {
+        if (gameState.totalSpent >= achievement.amount && !gameState.achievements.includes(achievement.id)) {
+            gameState.achievements.push(achievement.id);
+            showAchievement(achievement);
+            saveGameState();
+        }
+    });
+}
+
+function showAchievement(achievement) {
+    const popup = document.getElementById('achievementsPopup');
+    const div = document.createElement('div');
+    div.className = 'achievement';
+    div.innerHTML = `
+        <div class="achievement-icon">${achievement.icon}</div>
+        <div><strong>Achievement Unlocked!</strong></div>
+        <div>${achievement.title}</div>
+    `;
+    popup.appendChild(div);
+    
+    setTimeout(() => {
+        div.remove();
+    }, 5000);
+}
+
+function showAchievements() {
+    alert('Achievements:\n\n' + 
+        achievements.map(a => 
+            `${a.icon} ${a.title} ${gameState.achievements.includes(a.id) ? '✅' : '❌'}`
+        ).join('\n')
+    );
+}
+
+// ==================== Challenges ====================
+function showDailyChallenge() {
+    const modal = document.getElementById('challengeModal');
+    document.getElementById('challengeTitle').textContent = 'Daily Challenge';
+    document.getElementById('challengeDescription').textContent = 'Spend ₹10 Crore in 10 minutes!';
+    modal.classList.add('active');
+}
+
+function showHourlyChallenge() {
+    const modal = document.getElementById('challengeModal');
+    document.getElementById('challengeTitle').textContent = 'Hourly Challenge';
+    document.getElementById('challengeDescription').textContent = 'Buy 10 tech items in 5 minutes!';
+    modal.classList.add('active');
+}
+
+function startChallenge() {
+    alert('Challenge started! Timer begins now.');
+    closeModal();
+}
+
+function closeModal() {
+    document.getElementById('challengeModal').classList.remove('active');
+}
+
+// ==================== Theme Toggle ====================
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const icon = document.getElementById('theme-icon');
+    icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+}
+
+// ==================== Music ====================
+function toggleMusic() {
+    gameState.musicPlaying = !gameState.musicPlaying;
+    const icon = document.getElementById('music-icon');
+    icon.className = gameState.musicPlaying ? 'fas fa-pause' : 'fas fa-music';
+    
+    if (gameState.musicPlaying) {
+        // Play background music (add your audio file)
+        console.log('Music playing...');
+    } else {
+        // Pause music
+        console.log('Music paused...');
+    }
+}
+
+// ==================== Sound Effects ====================
+function playSound(amount) {
+    // Add sound effects based on amount
+    if (amount < 100000) {
+        console.log('Playing click sound');
+    } else if (amount < 10000000) {
+        console.log('Playing cash register sound');
+    } else {
+        console.log('Playing explosion sound');
+    }
+}
+
+// ==================== Notifications ====================
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'purchase-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
+}
+
+// ==================== Storage ====================
+function saveGameState() {
+    localStorage.setItem('gameState', JSON.stringify(gameState));
+}
+
+function loadGameState() {
+    const saved = localStorage.getItem('gameState');
+    if (saved) {
+        gameState = JSON.parse(saved);
+    }
+    
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('theme-icon').className = 'fas fa-sun';
+    }
+}
+
+function resetGame() {
+    if (confirm('Reset game? All progress will be lost!')) {
+        gameState = {
+            netWorth: 50000000000000,
+            totalSpent: 0,
+            purchases: {},
+            achievements: [],
+            musicPlaying: false
+        };
+        saveGameState();
+        updateStats();
+        updateReceipt();
+        renderItems('all');
+        applyDynamicPricing();
+    }
+}
+
+// ==================== Utilities ====================
+function formatNumber(num) {
+    if (num >= 10000000) {
+        return (num / 10000000).toFixed(2) + ' Cr';
+    } else if (num >= 100000) {
+        return (num / 100000).toFixed(2) + ' L';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(2) + ' K';
+    }
+    return num.toLocaleString('en-IN');
+}
+
+// ==================== Initialize ====================
+window.onload = initGame;
+    </script>
+</body>
+</html>
